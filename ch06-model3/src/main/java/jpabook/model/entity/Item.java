@@ -1,6 +1,8 @@
 package jpabook.model.entity;
 
 import javax.persistence.*;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,9 +10,14 @@ import java.util.List;
  * Created by holyeye on 2014. 3. 11..
  */
 @Entity
-public class Item {
+public class Item implements Serializable {
 
-    @Id
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = -4801259113293021725L;
+
+	@Id
     @GeneratedValue
     @Column(name = "ITEM_ID")
     private Long id;
@@ -22,7 +29,19 @@ public class Item {
     @ManyToMany(mappedBy = "items")                         //**
     private List<Category> categories = new ArrayList<Category>(); //**
 
-    //Getter, Setter
+    public Item() {
+    	
+    }
+    
+    public Item(String name) {
+    	this.name = name;
+	}
+
+	public Item(long l) {
+		this.id = id;
+	}
+
+	//Getter, Setter
     public Long getId() {
         return id;
     }
