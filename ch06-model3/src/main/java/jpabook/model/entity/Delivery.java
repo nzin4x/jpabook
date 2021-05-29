@@ -9,7 +9,13 @@ import javax.persistence.*;
 @Entity
 public class Delivery {
 
-    @Id @GeneratedValue
+    @Override
+	public String toString() {
+		return "Delivery [id=" + id + ", order=" + order + ", city=" + city + ", street=" + street + ", zipcode="
+				+ zipcode + ", status=" + status + "]";
+	}
+
+	@Id @GeneratedValue
     @Column(name = "DELIVERY_ID")
     private Long id;
 
