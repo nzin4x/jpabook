@@ -10,7 +10,7 @@
 			<property name="javax.persistence.jdbc.user" value="sa" />
 			<property name="javax.persistence.jdbc.password" value="" />
 			<property name="javax.persistence.jdbc.url"
-				value="jdbc:h2:tcp://localhost/~/test" />
+				value="jdbc:h2:tcp://localhost/~/test2" />
 
 			<!-- H2 데이터베이스 방언 사용 -->
 			<property name="hibernate.dialect"
