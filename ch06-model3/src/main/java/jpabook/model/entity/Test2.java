@@ -5,6 +5,8 @@ import static org.junit.Assert.assertTrue;
 import java.io.Serializable;
 
 import javax.persistence.Column;
+import javax.persistence.Embeddable;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -36,24 +38,13 @@ public class Test2 {
 
 	@Test
 	public void testParent() {
-		Parent parent = new Parent("key1", "key3");
-		parent.setName("hello Parent 2");
+		Parent parent = new Parent();
+		parent.setId(new ParentId("key 3","key4"));
+		parent.setName("hello Parent 34");
 		em.persist(parent);
 
 	}
 
-	@Test
-	public void testChild() {
-		Parent parent = new Parent("key1", "key2");
-		parent.setName("hello Parent");
-		em.persist(parent);
-
-		Child child = new Child();
-		child.setName("hello child");
-		child.setParent(parent);
-		em.persist(child);
-
-	}
 
 	@BeforeClass
 	public static void start() {
@@ -83,45 +74,30 @@ public class Test2 {
 }
 
 @Entity
-@IdClass(ParentId.class)
 @Table(name = "parent")
 class Parent {
 
-	@Id
-	@Column(name = "parent_id1")
-	private String id1;
-	@Id
-	@Column(name = "parent_id2")
-	private String id2;
+	@EmbeddedId
+	private ParentId id;
 	private String name;
 
 	public Parent() {
 	}
 
-	public Parent(String id1, String id2) {
-		this.id1 = id1;
-		this.id2 = id2;
+
+	public ParentId getId() {
+		return id;
 	}
+
+
+	public void setId(ParentId id) {
+		this.id = id;
+	}
+
 
 	public void setName(String name) {
 		this.name = name;
 
-	}
-
-	public String getId1() {
-		return id1;
-	}
-
-	public void setId1(String id1) {
-		this.id1 = id1;
-	}
-
-	public String getId2() {
-		return id2;
-	}
-
-	public void setId2(String id2) {
-		this.id2 = id2;
 	}
 
 	public String getName() {
@@ -130,13 +106,16 @@ class Parent {
 
 }
 
+@Embeddable
 class ParentId implements Serializable {
 
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3686026681833446229L;
+	@Column(name="parent_id1")
 	private String id1;
+	@Column(name="parent_id2")
 	private String id2;
 
 	public ParentId() {
